@@ -1,2 +1,4 @@
 # Library_manager
-A library system ro manage loan, avaiable and unavaible books
+
+A simple Python program to manage a library’s books and users.
+Track available and borrowed books, manage loans and returns, and get an overview of all users and their borrowed books.
