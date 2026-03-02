@@ -1,1 +1,0 @@
-    book.display_info()
