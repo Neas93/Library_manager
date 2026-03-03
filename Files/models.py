@@ -11,5 +11,3 @@ class Book(Item_info):
 
     def display_info(self):
         print(f"{self.book_id} | {self.title} | {self.author} | {self.copies}")
-        
-
