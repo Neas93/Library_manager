@@ -11,3 +11,14 @@ class Book(Item_info):
 
     def display_info(self):
         print(f"{self.book_id} | {self.title} | {self.author} | {self.copies}")
+
+class Member(Item_info):
+
+    def __init__(self, member_id, name):
+        self.member_id = member_id
+        self.name = name
+        self.borrowed_books = []
+
+    def display_info(self):
+        print(f"{self.member_id} | {self.name} | Borrowed: {len(self.borrowed_books)}")
+        
