@@ -2,7 +2,7 @@
 class Item_info:
     def display_info(self):
         pass
-    
+
 #class and functions for books
 class Book(Item_info):
     def __init__ (self, book_id, title, author, copies):
@@ -18,10 +18,10 @@ class Book(Item_info):
 #class and functions for members
 class Member(Item_info):
 
-    def __init__(self, member_id, name):
+    def __init__(self, member_id, name, borrowed_books=None):
         self.member_id = member_id
         self.name = name
-        self.borrowed_books = []
+        self.borrowed_books = borrowed_books if borrowed_books is not None else[]
 
     def display_info(self):
         print(f"{self.member_id} | {self.name} | Borrowed: {len(self.borrowed_books)}")
