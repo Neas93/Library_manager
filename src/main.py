@@ -1,9 +1,14 @@
 from library import Library
 
-lib = Library("Lists/Books.txt")
+library = Library(
+    book_file="Lists/Books.txt",
+    member_file="Lists/Members.txt"
+)
 
-print("ID | Title | Title | Author | Copies\n")
-print ("-" * 50)
-
-for book in lib.books.values():
+print("Books:")
+for book in library.books.values():
     book.display_info()
+
+print("\nMembers:")
+for member in library.members.values():
+    member.display_info()

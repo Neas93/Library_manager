@@ -1,12 +1,15 @@
 from models import Book, Member
 
 class Library:
-    def __init__(self, filepath=None):
+    def __init__(self, book_file=None, member_file=None):
         self.books = {}
         self.members = {}
 
-        if filepath:
-            self.load_books_from_file(filepath)
+        if book_file:
+            self.load_books_from_file(book_file)
+
+        if member_file:
+            self.load_members_from_file(member_file)
 
     def load_books_from_file(self,filepath):
         with open(filepath, "r") as file:
@@ -19,6 +22,22 @@ class Library:
                 book = Book(book_id, title, author, int(copies))
                 self.books[book_id] = book
 
+    def load_members_from_file(self, filepath):
+
+        with open(filepath, "r") as file:
+
+            for line in file:
+
+                line = line.strip()
+
+                if not line:
+                    continue
+
+                member_id, name = line.split(";")
+
+                member = Member(member_id, name)
+
+                self.members[member_id] = member
 
     def search_book_by_id(self, book_id):
         return self.books.get(book_id)
@@ -47,3 +66,23 @@ class Library:
         member.borrowed_books.append(book_id)
         book.copies -= 1
         return "Book borrowed successfully"
+    
+    
+    def return_book(self, member_id, book_id):
+
+        member = self.members.get(member_id)
+        book = self.books.get(book_id)
+
+        if member is None:
+            return "Member not found"
+
+        if book is None:
+            return "Book not found"
+
+        if book_id not in member.borrowed_books:
+            return "Book not borrowed by this member"
+
+        member.borrowed_books.remove(book_id)
+        book.copies += 1
+
+        return "Book returned successfully"
