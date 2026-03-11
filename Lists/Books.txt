@@ -2,3 +2,4 @@ B001;1984;George Owell;9
 B002;Dune; Frank Herbert;2
 B003;The Hobbit; J.J.R. Tolkien;5
 B004;Broken Bones; Angela Marsons;6
+B005;Eragon;Paolini;4

@@ -115,3 +115,19 @@ class Library:
     def add_member(self, member):
         self.members[member.member_id] = member
         self.save_members_to_file()
+
+#Functions to remove books/members
+
+    def remove_book(self, book_id):
+        if book_id in self.books:
+            del self.books[book_id]
+            self.save_books_to_file()
+            return "Book removed succesfully"
+        return "Book not found"
+    
+    def remove_member(self, member_id):
+        if member_id in self.members:
+            del self.members[member_id]
+            self.save_members_to_file()
+            return "Member removed successfully"
+        return "Member not found"
