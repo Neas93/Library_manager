@@ -41,8 +41,8 @@ class Library:
                 if len(parts) > 2 and parts[2]:
                     borrowed_books = parts[2].split(",")
 
-            member = Member(member_id, name, borrowed_books)
-            self.members[member_id] = member
+                member = Member(member_id, name, borrowed_books)
+                self.members[member_id] = member
 
     def save_books_to_file(self):
         if not self.book_file:

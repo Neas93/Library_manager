@@ -6,6 +6,8 @@ library = Library(
     member_file="Lists/Members.txt"
 )
 
+print("Loaded member", library.members)
+
 while True:
 
     print("\nLibrary Menu")
