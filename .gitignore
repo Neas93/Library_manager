@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Local releases
+V.1.0.x/
+
+# Editor
+.vscode/
