@@ -6,7 +6,6 @@ library = Library(
     member_file="Lists/Members.txt"
 )
 
-print("Loaded member", library.members)
 
 while True:
 
@@ -19,6 +18,7 @@ while True:
     print("6. Exit")
 
     choice = input("Choose option: ")
+    print("\n")
 
     if choice == "1":
         for book in library.books.values():

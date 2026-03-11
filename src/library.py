@@ -61,21 +61,11 @@ class Library:
                 borrowed = ",".join(member.borrowed_books)
                 file.write(f"{member.member_id};{member.name};{borrowed}\n")
     
-#Book-related functions
+#Book & Member related functions
    
     def add_book(self, book):
         self.books[book.book_id] = book
         self.save_books_to_file()
-
-    def search_book_by_id(self, book_id):
-        return self.books.get(book_id)
-    
-    
-    def search_book_by_title(self, title):
-        for book in self.books.values():
-            if book.title.lower() == title.lower():
-                return book
-        return None
     
     
     def borrow_book(self, member_id, book_id):
@@ -122,7 +112,6 @@ class Library:
 
         return "Book returned successfully"
     
-#Member-related functions
     def add_member(self, member):
         self.members[member.member_id] = member
         self.save_members_to_file()

@@ -4,14 +4,6 @@ from src.models import Book, Member
 
 class TestLibraryClass(unittest.TestCase):
 
-    def test_search_book_by_id(self):
-        library = Library()
-        library.books["B001"] = Book("B001", "1984", "George Orwell", 10)
-
-        book = library.search_book_by_id("B001")
-
-        self.assertIsNotNone(book)
-        self.assertEqual(book.title, "1984")
 
     def test_borrow_book(self):
         library = Library()
