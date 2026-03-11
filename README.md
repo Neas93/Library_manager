@@ -3,8 +3,8 @@
 A simple Python program to manage a library's books and users.
 
 Features:
-- Add and remove books
-- Add and remove members
+- Add/Update/Remove books
+- Add/Update/Remove members
 - Borrow and return books
 - Track available copies
 - File storage using Books.txt and Members.txt
