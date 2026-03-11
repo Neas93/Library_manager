@@ -1,14 +1,16 @@
 def menu():
     options = [
-        "1. List books",
-        "2. Add book",
-        "3. Remove book",
-        "4. Borrow book",
-        "5. Return book",
-        "6. Add member",
-        "7. Show members",
-        "8. Remove member",
-        "9. Exit"
+        "1.  List books",
+        "2.  Add book",
+        "3.  Remove book",
+        "4.  Update book",
+        "5.  Borrow book",
+        "6.  Return book",
+        "7.  Show members",
+        "8.  Add member",
+        "9.  Remove member",
+        "10. Update member",
+        "11. Exit"
     ]
     print("\n" + "=" * 40)
     print("Library Menu".center(40))

@@ -43,6 +43,18 @@ class TestLibraryClass(unittest.TestCase):
         self.assertEqual(result, "Book removed succesfully")
         self.assertNotIn("B001", library.books)
 
+    def test_update_book(self):
+
+        library = Library()
+
+        book = Book("B001", "Old Title", "Author", 3)
+        library.books["B001"] = book
+
+        result = library.update_book("B001", title="New Title")
+
+        self.assertEqual(result, "Book updated")
+        self.assertEqual(library.books["B001"].title, "New Title")
+
     def test_rmv_book_not_found(self):
         library = Library()
 
@@ -50,6 +62,17 @@ class TestLibraryClass(unittest.TestCase):
 
         self.assertEqual(result, "Book not found")
 
+    def test_update_member(self):
+
+        library = Library()
+
+        member = Member("M001", "Old Name")
+        library.members["M001"] = member
+
+        result = library.update_member("M001", name="New Name")
+
+        self.assertEqual(result, "Member updated")
+        self.assertEqual(library.members["M001"].name, "New Name")
 
     def test_rmv_member(self):
         library = Library()

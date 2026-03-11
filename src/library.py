@@ -12,7 +12,9 @@ class Library:
 
         if member_file:
             self.load_members_from_file(member_file)
+
 #filebased functions
+
     def load_books_from_file(self,filepath):
         with open(filepath, "r") as file:
             for line in file:
@@ -66,8 +68,7 @@ class Library:
     def add_book(self, book):
         self.books[book.book_id] = book
         self.save_books_to_file()
-    
-    
+      
     def borrow_book(self, member_id, book_id):
         member = self.members.get(member_id)
         book = self.books.get(book_id)
@@ -88,7 +89,6 @@ class Library:
         self.save_members_to_file()
 
         return "Book borrowed successfully"
-    
 
     def return_book(self, member_id, book_id):
 
@@ -112,9 +112,39 @@ class Library:
 
         return "Book returned successfully"
     
+    def update_book(self, book_id, title=None, author=None, copies=None):
+        book = self.books.get(book_id)
+
+        if book is None:
+            return "Book not found"
+        
+        if title:
+            book.title = title
+
+        if author:
+            book.author = author
+
+        if copies is not None:
+            book.copies = copies
+
+        self.save_books_to_file()
+        return "Book updated"
+
     def add_member(self, member):
         self.members[member.member_id] = member
         self.save_members_to_file()
+
+    def update_member(self, member_id, name=None):
+        member = self.members.get(member_id)
+
+        if member is None:
+            return "Member not found"
+        
+        if name:
+            member.name = name
+
+        self.save_members_to_file()
+        return "Member updated"
 
 #Functions to remove books/members
 
