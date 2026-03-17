@@ -5,7 +5,7 @@ from utils import menu
 library = Library(
     book_file="Lists/Books.txt",
     member_file="Lists/Members.txt",
-    loan_file="Lists/loans.txt"
+    loan_file="Lists/Loans.txt"
 )
 
 while True:
