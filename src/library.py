@@ -99,7 +99,7 @@ class Library:
 
         if self.loan_file:
             with open(self.loan_file, "a") as file:
-                file.write(f"{book_id};{member_id};{today};Active\n")
+                file.write(f"{book_id};{member_id};Borrowed: {today};Active\n")
 
         self.save_books_to_file()
         self.save_members_to_file()
@@ -139,7 +139,8 @@ class Library:
                         and saved_member_id == member_id
                         and status == "Active"
                     ):
-                        updated_lines.append(f"{saved_book_id};{saved_member_id};{borrowed_date};Returned\n")
+                        return_date = str(date.today())
+                        updated_lines.append(f"{saved_book_id};{saved_member_id};{borrowed_date};Returned: {return_date}\n")
                     else:
                         updated_lines.append(line + "\n")
 
@@ -202,7 +203,7 @@ class Library:
                 book_id, saved_member_id, borrowed_date, status = line.split(";")
 
                 if saved_member_id == member_id:
-                    print(f"Book ID: {book_id} | Borrowed: {borrowed_date} | Status: {status}")
+                    print(f"Book ID: {book_id} | {borrowed_date} | {status}")
                     found = True
 
         if not found:
