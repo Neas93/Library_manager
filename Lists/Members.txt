@@ -1,14 +1,4 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-M001;Per;B001
-M002;Joan;
-=======
 M001;Per;
 M002;John;
->>>>>>> Stashed changes
-=======
-M001;Per;
-M002;John;
->>>>>>> Stashed changes
 M003;Hans;
 M004;Nina;
