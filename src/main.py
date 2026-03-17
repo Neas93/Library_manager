@@ -4,7 +4,8 @@ from utils import menu
 
 library = Library(
     book_file="Lists/Books.txt",
-    member_file="Lists/Members.txt"
+    member_file="Lists/Members.txt",
+    loan_file="Lists/loans.txt"
 )
 
 while True:
@@ -13,7 +14,7 @@ while True:
     while True:
         try:
             choice = int(input("Choose option: "))
-            if 1 <= choice <= 11:
+            if 1 <= choice <= 13:
                 break
             else:
                 print("Please enter a number from the menu")
@@ -78,24 +79,35 @@ while True:
         print(result)
 
     elif choice == 5:
+        query = input("Enter title or author: ")
+        results = library.search_book(query)
+
+        if not results:
+            print("No books found.")
+        else:
+            for book in results:
+                book.display_info()
+
+    elif choice == 6:
         member_id = input("Member ID: ")
         book_id = input("Book ID: ")
 
         result = library.borrow_book(member_id, book_id)
         print(result)
 
-    elif choice == 6:
+    elif choice == 7:
         member_id = input("Member ID: ")
         book_id = input("Book ID: ")
 
         result = library.return_book(member_id, book_id)
         print(result)
 
-    elif choice == 7:
+    elif choice == 8:
         for member in library.members.values():
             member.display_info()
 
-    elif choice == 8:
+
+    elif choice == 9:
         member_id = input("Member ID: ")
         name = input("Member name: ")
 
@@ -105,14 +117,14 @@ while True:
         print("Member added.")
 
 
-    elif choice == 9:
+    elif choice == 10:
         member_id = input("Enter the ID of the member you want to remove: ")
 
         result = library.remove_member(member_id)
 
         print(result)
 
-    elif choice == 10:
+    elif choice == 11:
         member_id = input("Member ID to update: ")
         name = input("New member name (leave blank to keep current): ")
 
@@ -123,6 +135,11 @@ while True:
 
         print(result)
 
-    elif choice == 11:
+    elif choice == 12:
+        member_id = input("Member ID: ")
+
+        library.show_member_loan_history(member_id)
+
+    elif choice == 13:
         print("Bye!")
         break

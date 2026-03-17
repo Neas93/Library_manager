@@ -1,11 +1,13 @@
 from models import Book, Member
+from datetime import date
 
 class Library:
-    def __init__(self, book_file=None, member_file=None):
+    def __init__(self, book_file=None, member_file=None, loan_file=None):
         self.books = {}
         self.members = {}
         self.book_file = book_file
         self.member_file = member_file
+        self.loan_file = loan_file
 
         if book_file:
             self.load_books_from_file(book_file)
@@ -64,6 +66,14 @@ class Library:
                 file.write(f"{member.member_id};{member.name};{borrowed}\n")
     
 #Book & Member related functions
+
+    def search_book(self, query):
+        results = []
+        query = query.lower()
+        for book in self.books.values():
+            if query in book.title.lower() or query in book.author.lower():
+                results.append(book)
+        return results
    
     def add_book(self, book):
         self.books[book.book_id] = book
@@ -84,6 +94,12 @@ class Library:
 
         member.borrowed_books.append(book_id)
         book.copies -= 1
+
+        today = str(date.today())
+
+        if self.loan_file:
+            with open(self.loan_file, "a") as file:
+                file.write(f"{book_id};{member_id};{today};Active\n")
 
         self.save_books_to_file()
         self.save_members_to_file()
@@ -106,6 +122,29 @@ class Library:
 
         member.borrowed_books.remove(book_id)
         book.copies += 1
+
+        if self.loan_file:
+            updated_lines = []
+
+            with open(self.loan_file, "r") as file:
+                for line in file:
+                    line = line.strip()
+
+                    if not line:
+                        continue
+
+                    saved_book_id, saved_member_id, borrowed_date, status = line.split(";")
+
+                    if (saved_book_id == book_id
+                        and saved_member_id == member_id
+                        and status == "Active"
+                    ):
+                        updated_lines.append(f"{saved_book_id};{saved_member_id};{borrowed_date};Returned\n")
+                    else:
+                        updated_lines.append(line + "\n")
+
+        with open(self.loan_file, "w") as file:
+            file.writelines(updated_lines)
 
         self.save_books_to_file()
         self.save_members_to_file()
@@ -146,6 +185,29 @@ class Library:
         self.save_members_to_file()
         return "Member updated"
 
+    def show_member_loan_history(self, member_id):
+        if not self.loan_file:
+            print("Loan file not available.")
+            return
+
+        found = False
+
+        with open(self.loan_file, "r") as file:
+            for line in file:
+                line = line.strip()
+
+                if not line:
+                    continue
+
+                book_id, saved_member_id, borrowed_date, status = line.split(";")
+
+                if saved_member_id == member_id:
+                    print(f"Book ID: {book_id} | Borrowed: {borrowed_date} | Status: {status}")
+                    found = True
+
+        if not found:
+            print("No loan history found for this member.")
+    
 #Functions to remove books/members
 
     def remove_book(self, book_id):

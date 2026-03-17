@@ -35,6 +35,28 @@ class TestLibraryClass(unittest.TestCase):
         self.assertEqual(library.books["B001"].copies, 2)
         self.assertNotIn("B001", member.borrowed_books)
 
+    def test_search_books_found(self):
+        library = Library()
+
+        book = Book("B001", "Harry Potter", "J.K. Rowling", 3)
+        library.books["B001"] = book
+
+        results = library.search_book("harry")
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0].title, "Harry Potter")
+
+    def test_search_books_not_found(self):
+        library = Library()
+
+        book = Book("B001", "Harry Potter", "J.K. Rowling", 3)
+        library.books["B001"] = book
+
+        results = library.search_book("dune")
+
+        self.assertEqual(results, [])
+    
+
     def test_rmv_book(self):
         library = Library()
         library.books["B001"] = Book("B001", "1984", "George Orwell", 10)
