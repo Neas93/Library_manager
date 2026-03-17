@@ -144,8 +144,8 @@ class Library:
                     else:
                         updated_lines.append(line + "\n")
 
-        with open(self.loan_file, "w") as file:
-            file.writelines(updated_lines)
+            with open(self.loan_file, "w") as file:
+                file.writelines(updated_lines)
 
         self.save_books_to_file()
         self.save_members_to_file()
