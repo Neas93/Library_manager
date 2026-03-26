@@ -9,15 +9,15 @@ class Library:
         self.member_file = member_file
         self.loan_file = loan_file
 
-        if book_file:
+        if book_file:#Checks if Books.txt is loadable
             self.load_books_from_file(book_file)
 
-        if member_file:
+        if member_file:#Checks if Members.txt is loadable
             self.load_members_from_file(member_file)
 
 #filebased functions
 
-    def load_books_from_file(self,filepath):
+    def load_books_from_file(self,filepath):# This functions searches the Books.txt and read them with line-split as ';'
         with open(filepath, "r") as file:
             for line in file:
                 line = line.strip()
@@ -28,7 +28,7 @@ class Library:
                 book = Book(book_id, title, author, int(copies))
                 self.books[book_id] = book
 
-    def load_members_from_file(self, filepath):
+    def load_members_from_file(self, filepath):# This functions searches the members.txt and read them with line-split as ';'
         with open(filepath, "r") as file:
             for line in file:
                 line = line.strip()
@@ -48,7 +48,7 @@ class Library:
                 member = Member(member_id, name, borrowed_books)
                 self.members[member_id] = member
 
-    def save_books_to_file(self):
+    def save_books_to_file(self):#This funciton adds a new item to books.txt with the corresponding attributes
         if not self.book_file:
             return
 
@@ -56,7 +56,7 @@ class Library:
             for book in self.books.values():
                 file.write(f"{book.book_id};{book.title};{book.author};{book.copies}\n")
     
-    def save_members_to_file(self):
+    def save_members_to_file(self): #This function adds a new item to members.txt with the corresponding attributes
         if not self.member_file:
             return
 
@@ -67,19 +67,19 @@ class Library:
     
 #Book & Member related functions
 
-    def search_book(self, query):
+    def search_book(self, query): #function to search through the list of books
         results = []
-        query = query.lower()
+        query = query.lower()# This ensures that the entry is accepted despite it being upper or lowercase
         for book in self.books.values():
             if query in book.title.lower() or query in book.author.lower():
                 results.append(book)
         return results
    
-    def add_book(self, book):
+    def add_book(self, book): #simple function to add a book to the book-list
         self.books[book.book_id] = book
         self.save_books_to_file()
       
-    def borrow_book(self, member_id, book_id):
+    def borrow_book(self, member_id, book_id): #Function to borrow books & update lists for proper overview
         member = self.members.get(member_id)
         book = self.books.get(book_id)
 
@@ -102,12 +102,12 @@ class Library:
                 file.write(f"{book_id};{member_id};Borrowed: {today};Active\n")
 
         self.save_books_to_file()
-        self.save_members_to_file()
+        self.save_members_to_file()#Updates books.txt & members.txt accordingly to the book borrowed
 
         return "Book borrowed successfully"
 
-    def return_book(self, member_id, book_id):
-
+    def return_book(self, member_id, book_id):# Function to return books and update the corresponding list
+#
         member = self.members.get(member_id)
         book = self.books.get(book_id)
 
@@ -118,7 +118,7 @@ class Library:
             return "Book not found"
 
         if book_id not in member.borrowed_books:
-            return "Book not borrowed by this member"
+            return "Book not borrowed by this member" #'None' refersto if the corresponding list doesnt have the info entered.
 
         member.borrowed_books.remove(book_id)
         book.copies += 1
@@ -126,7 +126,7 @@ class Library:
         if self.loan_file:
             updated_lines = []
 
-            with open(self.loan_file, "r") as file:
+            with open(self.loan_file, "r") as file: # Opens the corresponding file to edit
                 for line in file:
                     line = line.strip()
 
@@ -137,7 +137,7 @@ class Library:
 
                     if (saved_book_id == book_id
                         and saved_member_id == member_id
-                        and status == "Active"
+                        and status == "Active"#After succesful loan, the function adds "Active" to loans.txt for better overview
                     ):
                         return_date = str(date.today())
                         updated_lines.append(f"{saved_book_id};{saved_member_id};{borrowed_date};Returned: {return_date}\n")
@@ -152,7 +152,7 @@ class Library:
 
         return "Book returned successfully"
     
-    def update_book(self, book_id, title=None, author=None, copies=None):
+    def update_book(self, book_id, title=None, author=None, copies=None):#function to update existing book in the library
         book = self.books.get(book_id)
 
         if book is None:
@@ -167,14 +167,14 @@ class Library:
         if copies is not None:
             book.copies = copies
 
-        self.save_books_to_file()
+        self.save_books_to_file()#save changes to file
         return "Book updated"
 
-    def add_member(self, member):
+    def add_member(self, member):#adds member to Members.txt 
         self.members[member.member_id] = member
         self.save_members_to_file()
 
-    def update_member(self, member_id, name=None):
+    def update_member(self, member_id, name=None):#Updates current info on member in Members.txt
         member = self.members.get(member_id)
 
         if member is None:
@@ -183,10 +183,10 @@ class Library:
         if name:
             member.name = name
 
-        self.save_members_to_file()
+        self.save_members_to_file()#saves changes to list
         return "Member updated"
 
-    def show_member_loan_history(self, member_id):
+    def show_member_loan_history(self, member_id):#function to list loan.txt history of member chosen by input
         if not self.loan_file:
             print("Loan file not available.")
             return

@@ -1,3 +1,5 @@
+#This part is to better overview of the CLI-feature
+
 def menu():
     options = [
         "1.  Show all books",

@@ -2,6 +2,7 @@ from library import Library
 from models import Book, Member
 from utils import menu
 
+#paths for file-variables
 library = Library(
     book_file="Lists/Books.txt",
     member_file="Lists/Members.txt",
@@ -11,18 +12,18 @@ library = Library(
 while True:
 
     menu()
-    while True:
+    while True: # Ensures the program keeps running while waiting for the input of the user
         try:
-            choice = int(input("Choose option: "))
+            choice = int(input("Choose option: ")) #Saves the chosen number into a variable
             if 1 <= choice <= 13:
                 break
             else:
-                print("Please enter a number from the menu")
-        except ValueError:
-            print("Please only use numbers to choose")
+                print("Please enter a number from the menu") # Ensures only numbers in the choice-range is used
+        except ValueError: # Ensures it only accepts numbers.
+            print("Please only use numbers to choose") 
 
     print("=" * 40 + "\n")
-
+# Following sections connects number-choice to corresponding function 
     if choice == 1:
         for book in library.books.values():
             book.display_info()
@@ -35,7 +36,7 @@ while True:
             try:
                 copies = int(input("Number of copies: "))
                 break
-            except ValueError as e:
+            except ValueError as e: #Ensures the function doesnt run if there isnt any copies available
                 print("Please enter a valid number")
 
         book = Book(book_id, title, author, copies)

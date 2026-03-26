@@ -1,4 +1,4 @@
-#base_class to  avoid repition of same code
+#base_class to avoid repition of same code in following classes
 class Item_info:
     def display_info(self):
         pass
